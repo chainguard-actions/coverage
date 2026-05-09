@@ -1,0 +1,35 @@
+name: 'Python Coverage'
+description: 'Publish coverage report to a PR & enforce coverage on new & modified files'
+author: 'orgoro'
+inputs:
+  coverageFile:
+    required: true
+    description: 'local path to a coverage xml file like the output of pytest --cov'
+  token:
+    required: true
+    description: 'github token'
+  thresholdAll:
+    required: false
+    description: the coverage threshold for average over all files [0,1]
+    default: 0.0
+  thresholdNew:
+    required: false
+    description: the coverage threshold for average over new files [0,1]
+    default: 0.0
+  thresholdModified:
+    required: false
+    description: the coverage threshold for average over new files [0,1]
+    default: 0.0
+  sourceDir:
+    required: false
+    description: the directory to use as the source of the coverage report
+  title:
+    required: false
+    description: title text shown in the PR comment heading and used to match existing comments. set a unique value per matrix entry to post separate comments
+    default: 'Code Coverage'
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
+branding:
+   icon: 'umbrella'
+   color: 'purple'

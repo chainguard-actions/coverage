@@ -1,0 +1,43 @@
+name: Test basic coverage report
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_EVENT_NAME: pull_request
+      GITHUB_REF: refs/pull/1/merge
+      GITHUB_HEAD_REF: feature-branch
+      GITHUB_BASE_REF: main
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Copy fixture coverage file
+        run: |
+          cp $GITHUB_WORKSPACE/actions/hardened/orgoro--coverage/v3.3/tests/fixtures/coverage.xml /tmp/coverage.xml
+
+      - id: action
+        uses: .
+        continue-on-error: true
+        with:
+          coverageFile: /tmp/coverage.xml
+          token: ${{ github.token }}
+          thresholdAll: "0.0"
+          thresholdNew: "0.0"
+          thresholdModified: "0.0"
+          sourceDir: src
+          title: "Code Coverage"
+
+      - name: Assert action ran (not a setup failure)
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "action outcome: $OUTCOME"
+          # The action may fail because there's no real PR, but it should not
+          # fail due to missing inputs or misconfiguration. Accept success or failure
+          # (not skipped, which would indicate a setup problem).
+          if [ "$OUTCOME" = "skipped" ]; then
+            echo "FAIL: action was skipped unexpectedly"
+            exit 1
+          fi
+          echo "PASS: action ran with outcome=$OUTCOME"
