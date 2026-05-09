@@ -1,0 +1,28 @@
+name: 'Python Coverage'
+description: 'Publish coverage report to a PR & enforce coverage on new & modified files'
+author: 'orgoro'
+inputs:
+  coverageFile:
+    required: true
+    description: 'local path to a covergae xml file like the output of pytest --cov'
+  token:
+    required: true
+    description: 'github token'
+  thresholdAll:
+    required: false
+    description: the coverage threshold for average over all files [0,1]
+    default: 0.0
+  thresholdNew:
+    required: false
+    description: the coverage threshold for average over new files [0,1]
+    default: 0.0
+  thresholdModified:
+    required: false
+    description: the coverage threshold for average over new files [0,1]
+    default: 0.0
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+   icon: 'umbrella'
+   color: 'purple'
