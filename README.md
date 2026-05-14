@@ -11,6 +11,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | v3.1 | [`v3.1`](https://github.com/chainguard-actions/coverage/tree/v3.1) | — |
 | v3.2 | [`v3.2`](https://github.com/chainguard-actions/coverage/tree/v3.2) | — |
 | v3.3 | [`v3.3`](https://github.com/chainguard-actions/coverage/tree/v3.3) | — |
+| v3.3.1 | [`v3.3.1`](https://github.com/chainguard-actions/coverage/tree/v3.3.1) | — |
 
 ## Privacy
 
